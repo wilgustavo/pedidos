@@ -2,11 +2,11 @@ import * as admin from 'firebase-admin';
 
 export class ProductoDB {
 
-  private ref = admin.database().ref('/productos');
+  private productosRef = admin.firestore().collection('productos');
 
   getProductos() {
-    return this.ref.once('value').then(snap => {
-      return snap.val();
+    return this.productosRef.get().then(snapshot  => {
+      return snapshot.docs.map(doc => Object.assign({}, doc.data(), {id: doc.id}));
     });
   }
 }
