@@ -6,7 +6,8 @@ const routes = (app: Express) => {
   const productoDb = new ProductoDB();
   const productoController = new ProductoController(productoDb);
   
-  app.get('/productos', productoController.getMensaje);
+  app.get('/productos', productoController.getProductos);
+  app.get('/productos/:id', productoController.getProducto);
 }
 
 export default routes;
