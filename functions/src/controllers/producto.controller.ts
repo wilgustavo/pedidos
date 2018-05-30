@@ -24,4 +24,14 @@ export class ProductoController {
         res.status(500).send(err); 
       });
   }
+
+  crearProducto = (req: Request, res: Response) => {
+    this.db.crearProducto(req.body)
+      .then(id => {
+        res.json({id});
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      });
+  }
 } 

@@ -12,4 +12,8 @@ export class ProductoDB {
   getProducto(id: string) {
     return this.productosRef.doc(id).get().then(doc => doc.data());
   }
+
+  crearProducto(producto) {
+    return this.productosRef.add(producto).then(doc => doc.id);
+  }
 }
