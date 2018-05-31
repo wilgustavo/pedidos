@@ -1,5 +1,6 @@
-import {Request, Response} from 'express';
+import {Request, Response, NextFunction} from 'express';
 import { ProductoDB } from '../database/producto.db';
+import { ProductoNotFound } from '../database/producto.error';
 
 export class ProductoController {
 
@@ -15,14 +16,12 @@ export class ProductoController {
       });
   }
 
-  getProducto = (req: Request, res: Response) => {
+  getProducto = (req: Request, res: Response, next: NextFunction) => {
     this.db.getProducto(req.params.id)
       .then(doc => {
         res.json(doc);
       })
-      .catch(err => {
-        res.status(500).send(err); 
-      });
+      .catch(err => next(err));
   }
 
   crearProducto = (req: Request, res: Response) => {
