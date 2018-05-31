@@ -1,4 +1,5 @@
 import * as admin from 'firebase-admin';
+import { ProductoNotFound } from './producto.error';
 
 export class ProductoDB {
 
@@ -10,7 +11,12 @@ export class ProductoDB {
   }
 
   getProducto(id: string) {
-    return this.productosRef.doc(id).get().then(doc => doc.data());
+    return this.productosRef.doc(id).get().then(doc => {
+      if (!doc.exists) {
+        throw new ProductoNotFound(`No existe producto ${id}`);
+      } 
+      return doc.data();
+    });
   }
 
   crearProducto(producto) {
