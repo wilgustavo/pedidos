@@ -6,7 +6,7 @@ export class ProductoDB {
   private productosRef = admin.firestore().collection('productos');
 
   getProductos() {
-    return this.productosRef.get()
+    return this.productosRef.orderBy('nombre').get()
       .then(snapshot  => snapshot.docs.map(doc => Object.assign({}, doc.data(), {id: doc.id})));
   }
 
