@@ -1,5 +1,7 @@
 import * as admin from 'firebase-admin';
 import { ProductoNotFound } from './producto.error';
+import { Producto } from '../models/producto.model';
+import { validate, ValidationError } from 'class-validator';
 
 export class ProductoDB {
 
@@ -19,7 +21,15 @@ export class ProductoDB {
     });
   }
 
-  crearProducto(producto) {
-    return this.productosRef.add(producto).then(doc => doc.id);
+  crearProducto(producto: Producto) {
+    const nuevoProducto = new Producto(producto);
+    return nuevoProducto.validar()
+      .then(errors => {
+        if (errors.length > 0) {
+          throw new Error('Error de validacion');
+        }
+        return this.productosRef.add(producto);
+      })
+      .then(doc => doc.id);
   }
 }

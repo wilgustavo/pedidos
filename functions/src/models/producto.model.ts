@@ -1,4 +1,4 @@
-import { IsString, MaxLength, IsNumber, IsNotEmpty } from 'class-validator';
+import { IsString, MaxLength, IsNumber, IsNotEmpty, validate, ValidationError } from 'class-validator';
 
 export class Producto {
 
@@ -18,4 +18,14 @@ export class Producto {
   @IsString()
   @MaxLength(100)
   imagen: string;
+
+  constructor(obj?: Partial<Producto>) {
+    if (obj) {
+      Object.assign(this, obj);
+    }
+  }
+
+  validar(): Promise<ValidationError[]> {
+    return validate(this);
+  }
 }
