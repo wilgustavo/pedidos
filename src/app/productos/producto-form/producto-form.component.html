@@ -1,0 +1,23 @@
+<p>
+  producto-form works!
+</p>
+<form [formGroup]="productoForm">
+
+  <div>
+    <label>Nombre: </label>
+    <input type="text" formControlName="nombre">
+  </div>
+  <div>
+    <label>Precio: </label>
+    <input type="number" formControlName="precio">
+  </div>
+  <div>
+    <label>Estado: </label>
+    <input type="text" formControlName="estado">
+  </div>
+  <div>
+    <label>Imagen: </label>
+    <input type="text" formControlName="imagen">
+  </div>
+  <button type="button" (click)="guardarProducto()">Guardar</button>
+</form>
