@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material/list';
 import { ProductosService } from './productos.service';
 import { ProductoListaComponent } from './producto-lista/producto-lista.component';
 import { ProductoFormComponent } from './producto-form/producto-form.component';
@@ -10,7 +11,8 @@ import { ProductoFormComponent } from './producto-form/producto-form.component';
   imports: [
     CommonModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatListModule
   ],
   declarations: [ProductoListaComponent, ProductoFormComponent],
   providers: [ProductosService],
