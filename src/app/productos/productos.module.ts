@@ -6,6 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { ProductosService } from './productos.service';
 import { ProductoListaComponent } from './producto-lista/producto-lista.component';
 import { ProductoFormComponent } from './producto-form/producto-form.component';
+import { ProductoDialogComponent } from './producto-dialog/producto-dialog.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,9 @@ import { ProductoFormComponent } from './producto-form/producto-form.component';
     ReactiveFormsModule,
     MatListModule
   ],
-  declarations: [ProductoListaComponent, ProductoFormComponent],
+  declarations: [ProductoListaComponent,
+                 ProductoFormComponent,
+                 ProductoDialogComponent],
   providers: [ProductosService],
   exports: [ProductoListaComponent, ProductoFormComponent]
 })
