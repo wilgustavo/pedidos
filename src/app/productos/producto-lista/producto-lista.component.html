@@ -4,8 +4,8 @@
 
 <section class="lista-productos">
   <mat-nav-list>
-    <mat-list-item *ngFor="let producto of productos">
-       <a matLine href="#">{{producto.nombre}}</a>
+    <mat-list-item *ngFor="let producto of productos" (click)="editarProducto()">
+       <div matLine>{{producto.nombre}}</div>
        <span>{{producto.precio}}</span>
     </mat-list-item>
   </mat-nav-list>
