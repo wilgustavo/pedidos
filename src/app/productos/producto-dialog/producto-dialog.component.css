@@ -1,0 +1,11 @@
+
+.producto-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  
+}
+
+.producto-form > * {
+  width: 100%;
+}
