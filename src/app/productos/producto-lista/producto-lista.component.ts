@@ -25,11 +25,12 @@ export class ProductoListaComponent implements OnInit {
       .subscribe(productos => this.productos = productos);
   }
 
-  editarProducto(): void {
+  editarProducto(producto): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
-      descripcion: 'Prueba'
+      descripcion: 'Prueba',
+      producto: producto
     };
     const dialogRef = this.dialog.open(ProductoDialogComponent , dialogConfig);
     dialogRef.afterClosed().subscribe(val => console.log('Retorno', val));
