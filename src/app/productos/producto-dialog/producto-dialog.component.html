@@ -3,7 +3,10 @@
 <mat-dialog-content>
     <form class="producto-form" [formGroup]="productoForm">
         <mat-form-field>
-            <input type="text" matInput placeholder="Nombre" formControlName="nombre">
+            <input type="text" matInput placeholder="Nombre" formControlName="nombre" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="productoForm.controls['nombre'].errors?.required">
+                Se requiere nombre
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field>

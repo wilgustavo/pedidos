@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ErrorMatcher } from '../../utiles/error-matcher';
 
 @Component({
   selector: 'app-producto-dialog',
@@ -11,6 +12,7 @@ export class ProductoDialogComponent implements OnInit {
 
   descripcion: string;
   productoForm: FormGroup;
+  matcher = new ErrorMatcher();
 
   constructor(
     private formBuilder: FormBuilder,
