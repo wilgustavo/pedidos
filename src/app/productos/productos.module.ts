@@ -6,7 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { ProductosService } from './productos.service';
 import { ProductoListaComponent } from './producto-lista/producto-lista.component';
 import { ProductoFormComponent } from './producto-form/producto-form.component';
@@ -21,7 +23,9 @@ import { ProductoDialogComponent } from './producto-dialog/producto-dialog.compo
     MatListModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatIconModule,
+    MatInputModule,
+    MatToolbarModule
   ],
   declarations: [ProductoListaComponent,
                  ProductoFormComponent,

@@ -1,5 +1,15 @@
-<h2 mat-dialog-title>{{descripcion}}</h2>
 
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+    <button mat-icon-button>
+        <mat-icon>clear</mat-icon> 
+    </button>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="guardar()">
+        <mat-icon>done</mat-icon> 
+    </button>
+    </mat-toolbar-row>
+</mat-toolbar>
 <mat-dialog-content>
     <form class="producto-form" [formGroup]="productoForm">
         <mat-form-field>
@@ -18,6 +28,3 @@
         </mat-form-field>
     </form>
 </mat-dialog-content>
-<mat-dialog-actions>
-    <button mat-raised-button color="accent" (click)="guardar()">Guardar</button>
-</mat-dialog-actions>
