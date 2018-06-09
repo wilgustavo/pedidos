@@ -43,4 +43,14 @@ export class ProductoController {
         res.status(500).send(err);
       });
   }
+
+  borrarProducto = (req: Request, res: Response) => {
+    this.db.borrarProducto(req.params.id)
+      .then(() => {
+        res.status(204).send();
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      });
+  }
 } 

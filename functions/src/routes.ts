@@ -10,6 +10,7 @@ const routes = (app: Express) => {
   app.get('/productos/:id', productoController.getProducto);
   app.post('/productos', productoController.crearProducto);
   app.put('/productos/:id', productoController.grabarProducto);
+  app.delete('/productos/:id', productoController.borrarProducto);
 }
 
 export default routes;

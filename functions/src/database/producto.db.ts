@@ -1,7 +1,6 @@
 import * as admin from 'firebase-admin';
 import { ProductoNotFound } from './producto.error';
 import { Producto } from '../models/producto.model';
-import { validate, ValidationError } from 'class-validator';
 
 export class ProductoDB {
 
@@ -41,5 +40,9 @@ export class ProductoDB {
         }
         return this.productosRef.doc(producto.id).set(Producto.removerId(producto));
       });
+  }
+
+  borrarProducto(id: string): Promise<any> {
+    return this.productosRef.doc(id).delete();
   }
 }
