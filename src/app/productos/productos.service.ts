@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Producto } from 'functions/src/models/producto.model';
 
 @Injectable()
 export class ProductosService {
@@ -18,8 +19,15 @@ export class ProductosService {
     return this.http.get(this.url);
   }
 
-  crearProducto(obj: any): Observable<any> {
-    console.log('voy a guardar', obj );
-    return this.http.post(this.url, obj, this.httpOptions);
+  crearProducto(producto: Producto): Observable<any> {
+    return this.http.post(this.url, producto, this.httpOptions);
+  }
+
+  guardarProducto(producto: Producto): Observable<any> {
+    return this.http.put(this.getProductoURL(producto), producto, this.httpOptions);
+  }
+
+  private getProductoURL(producto: Producto): string {
+    return this.url + `/${producto.id}`;
   }
 }

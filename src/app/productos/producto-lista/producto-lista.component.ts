@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../productos.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ProductoDialogComponent } from '../producto-dialog/producto-dialog.component';
+import { Producto } from 'functions/src/models/producto.model';
 
 @Component({
   selector: 'app-producto-lista',
@@ -28,12 +29,13 @@ export class ProductoListaComponent implements OnInit {
   editarProducto(producto): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.data = {
-      descripcion: 'Prueba',
-      producto: producto
-    };
+    dialogConfig.data = { producto };
     const dialogRef = this.dialog.open(ProductoDialogComponent , dialogConfig);
-    dialogRef.afterClosed().subscribe(val => console.log('Retorno', val));
+    dialogRef.afterClosed().subscribe(val => {
+      if (val) {
+        this.getProductos();
+      }
+    });
   }
 
 }

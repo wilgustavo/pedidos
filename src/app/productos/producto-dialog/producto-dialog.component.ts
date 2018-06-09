@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ErrorMatcher } from '../../utiles/error-matcher';
+import { Producto } from 'functions/src/models/producto.model';
+import { ProductosService } from '../productos.service';
 
 @Component({
   selector: 'app-producto-dialog',
@@ -10,17 +12,18 @@ import { ErrorMatcher } from '../../utiles/error-matcher';
 })
 export class ProductoDialogComponent implements OnInit {
 
-  descripcion: string;
+  productoId: string;
   productoForm: FormGroup;
   matcher = new ErrorMatcher();
 
   constructor(
+    private productoService: ProductosService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<ProductoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private datos: any) {
 
-      this.descripcion = datos.descripcion;
       this.crearFormulario();
+      this.productoId = datos.producto.id || '';
       this.productoForm.setValue({
         nombre: datos.producto.nombre || '',
         imagen: datos.producto.imagen || '',
@@ -42,6 +45,15 @@ export class ProductoDialogComponent implements OnInit {
   }
 
   guardar() {
-    this.dialogRef.close('ok');
+    const producto = Producto.addId(this.productoForm.value, this.productoId);
+    this.productoService
+      .guardarProducto(producto)
+      .subscribe(() => {
+        this.dialogRef.close(producto);
+      });
+  }
+
+  cancelar() {
+    this.dialogRef.close();
   }
 }
