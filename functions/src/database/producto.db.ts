@@ -7,29 +7,39 @@ export class ProductoDB {
 
   private productosRef = admin.firestore().collection('productos');
 
-  getProductos() {
+  getProductos(): Promise<Producto[]> {
     return this.productosRef.orderBy('nombre').get()
-      .then(snapshot  => snapshot.docs.map(doc => Object.assign({}, doc.data(), {id: doc.id})));
+      .then(snapshot  => snapshot.docs.map(doc => Producto.addId(doc.data(), doc.id)));
   }
 
-  getProducto(id: string) {
+  getProducto(id: string): Promise<Producto> {
     return this.productosRef.doc(id).get().then(doc => {
       if (!doc.exists) {
         throw new ProductoNotFound(`No existe producto ${id}`);
       } 
-      return doc.data();
+      return Producto.addId(doc.data(), id);
     });
   }
 
-  crearProducto(producto: Producto) {
-    const nuevoProducto = new Producto(producto);
-    return nuevoProducto.validar()
+  crearProducto(producto: Producto): Promise<Producto> {
+    
+    return Producto.validar(producto)
       .then(errors => {
         if (errors.length > 0) {
           throw new Error('Error de validacion');
         }
         return this.productosRef.add(producto);
       })
-      .then(doc => doc.id);
+      .then(doc => Producto.addId(producto, doc.id));
+  }
+
+  guardarProducto(producto: Producto): Promise<any> {
+    return Producto.validar(producto)
+      .then(errors => {
+        if (errors.length > 0) {
+          throw new Error('Error de validacion');
+        }
+        return this.productosRef.doc(producto.id).set(Producto.removerId(producto));
+      });
   }
 }
