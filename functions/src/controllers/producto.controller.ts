@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction} from 'express';
 import { ProductoDB } from '../database/producto.db';
-import { ProductoNotFound } from '../database/producto.error';
+import { Producto } from '../models/producto.model';
 
 export class ProductoController {
 
@@ -26,8 +26,18 @@ export class ProductoController {
 
   crearProducto = (req: Request, res: Response) => {
     this.db.crearProducto(req.body)
-      .then(id => {
-        res.json({id});
+      .then(doc => {
+        res.json(doc);
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      });
+  }
+
+  grabarProducto = (req: Request, res: Response) => {
+    this.db.guardarProducto(Producto.addId(req.body, req.params.id))
+      .then(() => {
+        res.status(204).send();
       })
       .catch(err => {
         res.status(500).send(err);

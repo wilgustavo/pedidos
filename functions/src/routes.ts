@@ -9,6 +9,7 @@ const routes = (app: Express) => {
   app.get('/productos', productoController.getProductos);
   app.get('/productos/:id', productoController.getProducto);
   app.post('/productos', productoController.crearProducto);
+  app.put('/productos/:id', productoController.grabarProducto);
 }
 
 export default routes;
