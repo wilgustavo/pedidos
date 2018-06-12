@@ -28,7 +28,7 @@ export class ProductoDialogComponent implements OnInit {
         nombre: datos.producto.nombre || '',
         imagen: datos.producto.imagen || '',
         precio: datos.producto.precio || 0 ,
-        estado: datos.producto.estado || ''
+        estado: datos.producto.estado || 'activo'
       });
     }
 
@@ -45,6 +45,22 @@ export class ProductoDialogComponent implements OnInit {
   }
 
   guardar() {
+    if (this.productoId) {
+      this.grabarProducto();
+    } else {
+      this.crearProducto();
+    }
+  }
+
+  crearProducto() {
+    this.productoService
+      .crearProducto(this.productoForm.value)
+      .subscribe(() => {
+        this.dialogRef.close(this.productoForm.value);
+      });
+  }
+
+  grabarProducto() {
     const producto = Producto.addId(this.productoForm.value, this.productoId);
     this.productoService
       .guardarProducto(producto)

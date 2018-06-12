@@ -26,7 +26,7 @@ export class ProductoListaComponent implements OnInit {
       .subscribe(productos => this.productos = productos);
   }
 
-  editarProducto(producto): void {
+  editarProducto(producto: Producto): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.data = { producto };
@@ -36,6 +36,11 @@ export class ProductoListaComponent implements OnInit {
         this.getProductos();
       }
     });
+  }
+
+  crearProducto() {
+    const producto = new Producto();
+    this.editarProducto(producto);
   }
 
 }
