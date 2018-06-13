@@ -24,10 +24,14 @@ export class ProductosService {
   }
 
   guardarProducto(producto: Producto): Observable<any> {
-    return this.http.put(this.getProductoURL(producto), producto, this.httpOptions);
+    return this.http.put(this.getProductoURL(producto.id), producto, this.httpOptions);
   }
 
-  private getProductoURL(producto: Producto): string {
-    return this.url + `/${producto.id}`;
+  borrarProducto(id: string): Observable<any> {
+    return this.http.delete(this.getProductoURL(id), this.httpOptions);
+  }
+
+  private getProductoURL(id: string): string {
+    return this.url + `/${id}`;
   }
 }
