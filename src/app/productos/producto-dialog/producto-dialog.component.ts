@@ -69,6 +69,18 @@ export class ProductoDialogComponent implements OnInit {
       });
   }
 
+  borrarProducto() {
+    if (this.productoId) {
+      this.productoService
+        .borrarProducto(this.productoId)
+        .subscribe(() => {
+          this.dialogRef.close({id: this.productoId});
+        });
+    } else {
+      this.cancelar();
+    }
+  }
+
   cancelar() {
     this.dialogRef.close();
   }
