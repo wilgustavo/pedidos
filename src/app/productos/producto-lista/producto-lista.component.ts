@@ -8,15 +8,15 @@ import { ProductosStorage } from '../productos.storage';
 })
 export class ProductoListaComponent implements OnInit {
 
-  productos;
-  haySeleccionado;
+  productos: any[];
+  seleccionados: number;
 
   constructor(
     private productoStorage: ProductosStorage) { }
 
   ngOnInit() {
     this.getProductos();
-    this.haySeleccionado = false;
+    this.seleccionados = 0;
   }
 
   getProductos(): void {
@@ -24,7 +24,7 @@ export class ProductoListaComponent implements OnInit {
   }
 
   check() {
-    this.haySeleccionado = this.productos.some(item => item.checked);
+    this.seleccionados = this.productos.filter(item => item.checked).length;
   }
 
 }
