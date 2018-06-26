@@ -12,7 +12,7 @@
 
 <section class="lista-productos">
   <mat-list>
-    <mat-list-item *ngFor="let producto of productos">
+    <mat-list-item *ngFor="let producto of productos" class="lista-item">
        <mat-checkbox [(ngModel)]="producto.checked" (change)="check()"></mat-checkbox>
        <span class="item-nombre">{{producto.nombre}}</span>
        <span class="item-precio">{{producto.precio}}</span>
