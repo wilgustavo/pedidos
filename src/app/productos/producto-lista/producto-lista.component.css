@@ -1,11 +1,31 @@
 
 .lista-productos {
-  max-width: 400px;
-  margin: auto;
+  max-width: 800px;
+  margin: 1em auto;
 }
 
-.fixedbutton {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
+.lista-item {
+  background-color: #ffffff;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  border-bottom: 1px solid #dddddd;
+   
+}
+
+mat-toolbar-row.seleccionados {
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.texto-toolbar {
+  margin-right: auto;
+  font-size: 14px;
+}
+
+.item-nombre {
+  margin-left: 1.5em;
+}
+
+.item-precio {
+  margin-left: 1.5em;
 }

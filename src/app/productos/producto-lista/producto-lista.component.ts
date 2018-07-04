@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductosService } from '../productos.service';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ProductoDialogComponent } from '../producto-dialog/producto-dialog.component';
-import { Producto } from 'functions/src/models/producto.model';
+import { ProductosStorage } from '../productos.storage';
 
 @Component({
   selector: 'app-producto-lista',
@@ -11,36 +8,23 @@ import { Producto } from 'functions/src/models/producto.model';
 })
 export class ProductoListaComponent implements OnInit {
 
-  productos;
+  productos: any[];
+  seleccionados: number;
 
   constructor(
-    private productoService: ProductosService,
-    private dialog: MatDialog) { }
+    private productoStorage: ProductosStorage) { }
 
   ngOnInit() {
     this.getProductos();
+    this.seleccionados = 0;
   }
 
   getProductos(): void {
-    this.productoService.getProductos()
-      .subscribe(productos => this.productos = productos);
+    this.productos = this.productoStorage.getProductos();
   }
 
-  editarProducto(producto: Producto): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = { producto };
-    const dialogRef = this.dialog.open(ProductoDialogComponent , dialogConfig);
-    dialogRef.afterClosed().subscribe(val => {
-      if (val) {
-        this.getProductos();
-      }
-    });
-  }
-
-  crearProducto() {
-    const producto = new Producto();
-    this.editarProducto(producto);
+  check() {
+    this.seleccionados = this.productos.filter(item => item.checked).length;
   }
 
 }

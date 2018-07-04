@@ -1,15 +1,18 @@
-<p>
-  Lista de productos
-</p>
-
 <section class="lista-productos">
-  <mat-nav-list>
-    <mat-list-item *ngFor="let producto of productos" (click)="editarProducto(producto)">
-       <div matLine>{{producto.nombre}}</div>
-       <span>{{producto.precio}}</span>
-    </mat-list-item>
-  </mat-nav-list>
+    <mat-list>
+        <mat-list-item class="lista-item">
+            <span class="texto-toolbar">{{seleccionados}} seleccionados</span>
+            <button mat-button *ngIf="seleccionados > 0">Cancelar</button>
+            <button mat-button *ngIf="seleccionados > 0">
+                <mat-icon>delete</mat-icon> Eliminar</button>
+        </mat-list-item>
+    </mat-list>
+
+    <mat-list>
+        <mat-list-item *ngFor="let producto of productos" class="lista-item">
+            <mat-checkbox [(ngModel)]="producto.checked" (change)="check()"></mat-checkbox>
+            <span class="item-nombre">{{producto.nombre}}</span>
+            <span class="item-precio">{{producto.precio}}</span>
+        </mat-list-item>
+    </mat-list>
 </section>
-<button mat-fab color="accent" class="fixedbutton" (click)="crearProducto()">
-  <mat-icon>add</mat-icon>
-</button>
