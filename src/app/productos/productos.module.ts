@@ -10,11 +10,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { ProductosService } from './productos.service';
 import { ProductoListaComponent } from './producto-lista/producto-lista.component';
 import { ProductoFormComponent } from './producto-form/producto-form.component';
 import { ProductoDialogComponent } from './producto-dialog/producto-dialog.component';
 import { ProductosStorage } from './productos.storage';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   imports: [
@@ -29,13 +31,15 @@ import { ProductosStorage } from './productos.storage';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSidenavModule
   ],
   declarations: [ProductoListaComponent,
                  ProductoFormComponent,
-                 ProductoDialogComponent],
+                 ProductoDialogComponent,
+                 SidebarComponent],
   providers: [ProductosService, ProductosStorage],
-  exports: [ProductoListaComponent, ProductoFormComponent],
+  exports: [ProductoListaComponent, ProductoFormComponent, SidebarComponent],
   entryComponents: [ProductoDialogComponent]
 })
 export class ProductosModule { }
