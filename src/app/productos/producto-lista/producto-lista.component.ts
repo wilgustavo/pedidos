@@ -44,6 +44,7 @@ export class ProductoListaComponent implements OnInit, OnDestroy {
 
   getProductos() {
     this.productos = this.productoStorage.getProductos().map(item => new SeleccionProducto(item, false));
+    this.seleccionados = 0;
   }
 
   check() {
