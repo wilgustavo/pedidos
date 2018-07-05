@@ -1,51 +1,59 @@
 import { Producto } from "functions/src/models/producto.model";
+import { ProductosService } from "./productos.service";
+import { ListaProducto } from "functions/src/models/lista-producto.model";
 
+import {tap} from 'rxjs/operators'
+import { Subject } from "rxjs";
+import { Injectable } from "@angular/core";
+
+@Injectable()
 export class ProductosStorage {
 
-  private productos: Producto[];
+  private lista: ListaProducto = new ListaProducto();
+  private cambios = new Subject<any>();
 
-  constructor() {
-    this.setEjemplos();
-  }
+  constructor(private productoService: ProductosService) {}
 
   getProductos() {
-    return this.productos;
+    return this.lista.getLista();
   };
 
   borrarProducto(id: string) {
-    this.productos = this.productos.filter( p => p.id != id );
+    return this.productoService
+      .borrarProducto(id)
+      .pipe(tap(() => {
+        this.lista.borrar(id);
+        this.cambios.next();
+      }));
   }
 
-  private setEjemplos() {
-    this.productos = [];
-    this.productos.push(new Producto({
-      id: 'aaaa111', 
-      estado: 'activo',
-      imagen: 'imagen1.png',
-      nombre: 'Jamón y queso',
-      precio: 25.00
-    }));
-    this.productos.push(new Producto({
-      id: 'aabb100', 
-      estado: 'activo',
-      imagen: 'imagen2.png',
-      nombre: 'Pollo con salsa blanca',
-      precio: 25.00
-    }));
-    this.productos.push(new Producto({
-      id: 'bbcc220', 
-      estado: 'activo',
-      imagen: 'imagen3.png',
-      nombre: 'Humita',
-      precio: 27.00
-    }));
-    this.productos.push(new Producto({
-      id: 'ccdd440', 
-      estado: 'activo',
-      imagen: 'imagen3.png',
-      nombre: 'Carne',
-      precio: 27.00
-    }));
+  agregarProducto(producto: Producto) {
+    return this.productoService
+      .crearProducto(producto)
+      .pipe(tap(() => {
+        this.lista.agregar(producto);
+        this.cambios.next();
+      }));
+  }
+
+  guardarProducto(producto: Producto) {
+    return this.productoService
+      .guardarProducto(producto)
+      .pipe(tap(() => {
+        this.lista.guardar(producto);
+        this.cambios.next();
+      }));
+  }
+
+  actualizar() {
+    this.productoService.getProductos().subscribe((lista) => {
+      this.lista.set(lista as Producto[]);
+      this.cambios.next(null);
+    });
+  }
+
+  onChange() {
+    return this.cambios;
   }
    
 }

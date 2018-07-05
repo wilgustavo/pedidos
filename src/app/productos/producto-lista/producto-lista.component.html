@@ -1,18 +1,21 @@
 <section class="lista-productos">
     <mat-list>
         <mat-list-item class="lista-item">
-            <span class="texto-toolbar">{{seleccionados}} seleccionados</span>
-            <button mat-button *ngIf="seleccionados > 0">Cancelar</button>
-            <button mat-button *ngIf="seleccionados > 0">
+            <span class="texto-toolbar" *ngIf="seleccionados === 0">Lista de productos</span>
+            <span class="texto-toolbar" *ngIf="seleccionados > 0">{{seleccionados}} seleccionados</span>
+            <button mat-button *ngIf="seleccionados === 0" (click)="actualizar()">
+                <mat-icon>refresh</mat-icon> Actualizar</button>
+            <button mat-button *ngIf="seleccionados > 0" (click)="cancelarSeleccionados()">Cancelar</button>
+            <button mat-button *ngIf="seleccionados > 0" (click)="borrarSeleccionados()">
                 <mat-icon>delete</mat-icon> Eliminar</button>
         </mat-list-item>
     </mat-list>
 
     <mat-list>
-        <mat-list-item *ngFor="let producto of productos" class="lista-item">
-            <mat-checkbox [(ngModel)]="producto.checked" (change)="check()"></mat-checkbox>
-            <span class="item-nombre">{{producto.nombre}}</span>
-            <span class="item-precio">{{producto.precio}}</span>
+        <mat-list-item *ngFor="let item of productos" class="lista-item">
+            <mat-checkbox [(ngModel)]="item.seleccionado" (change)="check()"></mat-checkbox>
+            <span class="item-nombre">{{item.producto.nombre}}</span>
+            <span class="item-precio">{{item.producto.precio}}</span>
         </mat-list-item>
     </mat-list>
 </section>

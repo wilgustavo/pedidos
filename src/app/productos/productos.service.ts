@@ -28,6 +28,7 @@ export class ProductosService {
   }
 
   borrarProducto(id: string): Observable<any> {
+    console.log('Borrar en servuce');
     return this.http.delete(this.getProductoURL(id), this.httpOptions);
   }
 
