@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProductosService } from './productos.service';
 import { ProductoListaComponent } from './producto-lista/producto-lista.component';
 import { ProductoFormComponent } from './producto-form/producto-form.component';
@@ -32,7 +33,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     MatIconModule,
     MatInputModule,
     MatToolbarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatProgressSpinnerModule
   ],
   declarations: [ProductoListaComponent,
                  ProductoFormComponent,

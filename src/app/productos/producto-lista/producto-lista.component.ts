@@ -21,16 +21,19 @@ export class ProductoListaComponent implements OnInit, OnDestroy {
   productos: SeleccionProducto[];
   seleccionados: number;
   onChange: Subscription;
+  actualizando: boolean;
 
   constructor(
     private productoStorage: ProductosStorage) { }
 
   ngOnInit() {
+    this.actualizando = true;
     this.getProductos();
     this.seleccionados = 0;
     this.productoStorage.actualizar();
     this.onChange = this.productoStorage.onChange().subscribe(() => {
       this.getProductos();
+      this.actualizando = false;
     });
   }
 
@@ -39,6 +42,7 @@ export class ProductoListaComponent implements OnInit, OnDestroy {
   }
 
   actualizar() {
+    this.actualizando = true;
     this.productoStorage.actualizar();
   }
 
@@ -64,6 +68,7 @@ export class ProductoListaComponent implements OnInit, OnDestroy {
   }
 
   borrarSeleccionados() {
+    this.actualizando = true;
     const ids = this.getSeleccionados().map(item => item.producto.id);
     ids.forEach(id => this.productoStorage.borrarProducto(id).subscribe());
   }
