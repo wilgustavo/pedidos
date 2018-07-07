@@ -14,8 +14,10 @@
     <mat-list *ngIf="!actualizando">
         <mat-list-item *ngFor="let item of productos" class="lista-item">
             <mat-checkbox [(ngModel)]="item.seleccionado" (change)="check()"></mat-checkbox>
-            <span class="item-nombre">{{item.producto.nombre}}</span>
-            <span class="item-precio">{{item.producto.precio}}</span>
+            <a href="#" (click)="editarProducto(item)">
+                <span class="item-nombre">{{item.producto.nombre}}</span>
+                <span class="item-precio">{{item.producto.precio}}</span>
+            </a>
         </mat-list-item>
     </mat-list>
 
