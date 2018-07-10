@@ -11,15 +11,20 @@
         </mat-list-item>
     </mat-list>
 
-    <mat-list *ngIf="!actualizando">
+    <mat-nav-list *ngIf="!actualizando">
         <mat-list-item *ngFor="let item of productos" class="lista-item">
             <mat-checkbox [(ngModel)]="item.seleccionado" (change)="check()"></mat-checkbox>
-            <span class="item-nombre">{{item.producto.nombre}}</span>
-            <span class="item-precio">{{item.producto.precio}}</span>
+            <a href="#" (click)="editarProducto(item)">
+                <span class="item-nombre">{{item.producto.nombre}}</span>
+                <span class="item-precio">{{item.producto.precio}}</span>
+            </a>
         </mat-list-item>
-    </mat-list>
+    </mat-nav-list>
 
     <div class="spinner-container" *ngIf="actualizando">
         <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'"></mat-progress-spinner>
     </div>
 </section>
+<button mat-fab color="accent" class="fixedbutton" (click)="crearProducto()">
+    <mat-icon>add</mat-icon>
+</button>

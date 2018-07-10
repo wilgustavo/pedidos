@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ErrorMatcher } from '../../utiles/error-matcher';
 import { Producto } from 'functions/src/models/producto.model';
-import { ProductosService } from '../productos.service';
+import { ProductosStorage } from '../productos.storage';
 
 @Component({
   selector: 'app-producto-dialog',
@@ -11,36 +11,32 @@ import { ProductosService } from '../productos.service';
   styleUrls: ['./producto-dialog.component.css']
 })
 export class ProductoDialogComponent implements OnInit {
-
+  titulo: string;
   productoId: string;
   productoForm: FormGroup;
   matcher = new ErrorMatcher();
 
   constructor(
-    private productoService: ProductosService,
+    private productoStorage: ProductosStorage,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<ProductoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private datos: any) {
-
-      this.crearFormulario();
-      this.productoId = datos.producto.id || '';
-      this.productoForm.setValue({
-        nombre: datos.producto.nombre || '',
-        imagen: datos.producto.imagen || '',
-        precio: datos.producto.precio || 0 ,
-        estado: datos.producto.estado || 'activo'
-      });
-    }
-
-  ngOnInit() {
+    @Inject(MAT_DIALOG_DATA) private datos: any
+  ) {
+    this.crearFormulario();
+    this.productoId = datos.producto.id || '';
+    this.titulo = datos.producto.id ? 'Editar producto' : 'Nuevo producto';
+    this.productoForm.setValue(new Producto(datos.producto));
   }
+
+  ngOnInit() {}
 
   crearFormulario() {
     this.productoForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       precio: [0.0, Validators.required],
       estado: ['activo'],
-      imagen: ''
+      imagen: '',
+      id: ''
     });
   }
 
@@ -53,32 +49,20 @@ export class ProductoDialogComponent implements OnInit {
   }
 
   crearProducto() {
-    this.productoService
-      .crearProducto(this.productoForm.value)
+    this.productoStorage
+      .agregarProducto(new Producto(this.productoForm.value))
       .subscribe(() => {
-        this.dialogRef.close(this.productoForm.value);
+        this.productoForm.reset();
+        this.productoForm.setValue(new Producto());
       });
   }
 
   grabarProducto() {
-    const producto = Producto.addId(this.productoForm.value, this.productoId);
-    this.productoService
-      .guardarProducto(producto)
+    this.productoStorage
+      .guardarProducto(new Producto(this.productoForm.value))
       .subscribe(() => {
-        this.dialogRef.close(producto);
+        this.dialogRef.close(this.productoForm.value);
       });
-  }
-
-  borrarProducto() {
-    if (this.productoId) {
-      this.productoService
-        .borrarProducto(this.productoId)
-        .subscribe(() => {
-          this.dialogRef.close({id: this.productoId});
-        });
-    } else {
-      this.cancelar();
-    }
   }
 
   cancelar() {

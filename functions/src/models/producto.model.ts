@@ -1,25 +1,30 @@
-import { IsString, MaxLength, IsNumber, IsNotEmpty, validate, ValidationError } from 'class-validator';
+import {
+  IsString,
+  MaxLength,
+  IsNumber,
+  IsNotEmpty,
+  validate,
+  ValidationError
+} from 'class-validator';
 
 export class Producto {
-
-  id: string; 
-
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(100)
-  nombre: string;
+  id: string = '';
 
   @IsString()
   @IsNotEmpty()
   @MaxLength(100)
-  estado: string;
+  nombre: string = '';
 
-  @IsNumber()
-  precio: number;
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(100)
+  estado: string = 'activo';
+
+  @IsNumber() precio: number = 0;
 
   @IsString()
   @MaxLength(100)
-  imagen: string;
+  imagen: string = '';
 
   constructor(obj?: Partial<Producto>) {
     if (obj) {
@@ -30,18 +35,18 @@ export class Producto {
   validar(): Promise<ValidationError[]> {
     return validate(this);
   }
-  
+
   static validar(obj: Partial<Producto>): Promise<ValidationError[]> {
     const producto = new Producto(obj);
     return validate(producto);
   }
 
   static addId(obj, id: string): Producto {
-    return Object.assign({}, obj, {id});
+    return Object.assign({}, obj, { id });
   }
 
   static removerId(producto: Producto): any {
-    const {id, ...obj} = producto;
+    const { id, ...obj } = producto;
     return obj;
   }
 }

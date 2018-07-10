@@ -1,4 +1,9 @@
 
+a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, .87);
+}
+
 .lista-productos {
   max-width: 800px;
   margin: 1em auto;
@@ -9,7 +14,6 @@
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.1);
   align-items: center;
   border-bottom: 1px solid #dddddd;
-   
 }
 
 mat-toolbar-row.seleccionados {
@@ -35,4 +39,10 @@ mat-toolbar-row.seleccionados {
   align-items: center;
   justify-content: center;
   height: 200px;
+}
+
+.fixedbutton {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
 }
