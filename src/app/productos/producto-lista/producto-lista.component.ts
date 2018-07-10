@@ -1,18 +1,18 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ProductosStorage } from "../productos.storage";
-import { Producto } from "functions/src/models/producto.model";
-import { Subscription } from "rxjs";
-import { MatDialogConfig, MatDialog } from "@angular/material";
-import { ProductoDialogComponent } from "../producto-dialog/producto-dialog.component";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ProductosStorage } from '../productos.storage';
+import { Producto } from 'functions/src/models/producto.model';
+import { Subscription } from 'rxjs';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { ProductoDialogComponent } from '../producto-dialog/producto-dialog.component';
 
 class SeleccionProducto {
   constructor(public producto: Producto, public seleccionado: boolean) {}
 }
 
 @Component({
-  selector: "app-producto-lista",
-  templateUrl: "./producto-lista.component.html",
-  styleUrls: ["./producto-lista.component.css"]
+  selector: 'app-producto-lista',
+  templateUrl: './producto-lista.component.html',
+  styleUrls: ['./producto-lista.component.css']
 })
 export class ProductoListaComponent implements OnInit, OnDestroy {
   productos: SeleccionProducto[];
@@ -80,5 +80,9 @@ export class ProductoListaComponent implements OnInit, OnDestroy {
     config.data = item;
     const ref = this.dialog.open(ProductoDialogComponent, config);
     ref.afterClosed().subscribe();
+  }
+
+  crearProducto() {
+    this.editarProducto(new SeleccionProducto(new Producto(), false));
   }
 }

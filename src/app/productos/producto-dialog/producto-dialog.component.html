@@ -1,15 +1,4 @@
-
-<mat-toolbar color="primary">
-    <mat-toolbar-row>
-    <button mat-icon-button (click)="cancelar()">
-        <mat-icon>clear</mat-icon>
-    </button>
-    <span class="spacer"></span>
-    <button mat-icon-button (click)="productoForm.valid && guardar()">
-        <mat-icon>done</mat-icon> 
-    </button>
-    </mat-toolbar-row>
-</mat-toolbar>
+<h1 mat-dialog-title>{{titulo}}</h1>
 <mat-dialog-content>
     <form class="producto-form" [formGroup]="productoForm">
         <mat-form-field>
@@ -27,5 +16,8 @@
             <input type="text" matInput placeholder="Imagen" formControlName="imagen">
         </mat-form-field>
     </form>
-    <button mat-raised-button color="warn" (click)="borrarProducto()">Borrar</button>
 </mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-button (click)="productoForm.valid && guardar()">Guardar</button>
+</mat-dialog-actions>
